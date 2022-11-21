@@ -22,6 +22,7 @@ class Product {
             const content = await this.getAll()
             const elementoFiltrado = content.filter(e => e.id !== id)
             await fs.writeFile(`./${this.route}`, JSON.stringify(elementoFiltrado, null, 2))
+            return elementoFiltrado
         } catch (error) {
             console.log(error)
         }
@@ -35,27 +36,34 @@ class Product {
             if (lastId === undefined){
                 const newProductFromCero = {
                     id: 1,
-                    name: newProduct.name,
-                    price: newProduct.price
+                    timestamp: `Creado: ${new Date().toLocaleString()}`,
+                    nombre: newProduct.nombre,
+                    descripcion: newProduct.descripcion,
+                    codigo: newProduct.codigo,
+                    foto: newProduct.foto,
+                    precio: newProduct.precio,
+                    stock: newProduct.stock
                 }
                 await content.push(newProductFromCero)
             }else{
                 
                 const newProductCompleted = {
                     id: (lastId.id +1),
-                    name: newProduct.name,
-                    price: newProduct.price
+                    timestamp: `Creado: ${new Date().toLocaleString()}`,
+                    nombre: newProduct.nombre,
+                    descripcion: newProduct.descripcion,
+                    codigo: newProduct.codigo,
+                    foto: newProduct.foto,
+                    precio: newProduct.precio,
+                    stock: newProduct.stock
                 }
                 await content.push(newProductCompleted)
             }
             await fs.writeFile(`./${this.route}`, JSON.stringify(content, null, 2))
+            return content
         } catch (error) {
             console.log(error)
         }
-    }
-    async deleteAll(){
-        const emptyArray = []
-        await fs.writeFile(`./${this.route}`, JSON.stringify(emptyArray, null, 2))
     }
     async getById(id){
         const content = await this.getAll()
@@ -66,34 +74,22 @@ class Product {
         if (!isEmpty){
             const filteredObject = await content.filter(e => e.id === id)
             return filteredObject
-        }else {
-            console.log("id no encontrado")
         }
     }
-    async getRandom() {
-        try {
-            const get = await this.getAll();
-            const randomItem = Math.floor(Math.random()*get.length);
-            const getRandom = get[randomItem];
-            return getRandom;
-        }
-        catch (err) {
-            console.log(`Reading ERR! ${err}`);
-        }
-    }
-    async modifyProductById(id, product){
+    async modifyProductById(idRecieved, product){
         try {
             const content = await this.getAll()
-            const filterById = await content.filter(e => e.id === id)
+            const filterById = await content.filter(e => e.id === idRecieved)
 
             const isEmpty = Object.keys(filterById).length === 0;
+            const newProduct =  {id: idRecieved, timestamp: `Modificado: ${new Date().toLocaleString()}`, ... product }
             if (!isEmpty){
-            const newModifiedProduct = {id: id, name: `${product.name}`, price: product.price }
-            content.splice((id-1), 1 , newModifiedProduct)
+            content.splice((idRecieved-1), 1 , newProduct )
             await fs.writeFile(`./${this.route}`, JSON.stringify(content, null, 2))
             } else{
                 console.log("id no encontrado")
             }
+            return content
         } catch (error) {
             console.log(error)
         }

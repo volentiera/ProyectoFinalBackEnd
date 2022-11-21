@@ -4,40 +4,39 @@ const router = Router();
 const Product = require('../controllers/products')
 const path = new Product('./products.json')
 
+const admin = true
 
-router.get('/api/productos', async (req,res) => {
+router.get('/api/productos/:id?', async (req,res) => {
     try {
-        const allProducts = await path.getAll()
-        res.json(allProducts)
-    } catch (error) {
-        console.log(error)
-    }
-})
-router.get('/api/productos/:id', async (req,res) => {
-    try {
-        const newId = Number(req.params.id)
-        const productById = await path.getById(newId)
-        const productNotFound = {error: 'Producto no encontrado'}
-        if (productById !== undefined){
+        const newId = req.params.id
+        if (newId !== undefined){
+            const idRecieved = Number(newId)
+            const productById = await path.getById(idRecieved)
             res.json(productById)
         } else {
-            res.json(productNotFound)
+            const allProducts = await path.getAll()
+            res.json(allProducts)
         }
     } catch (error) {
         console.log(error)
     }
 })
 router.post('/api/productos', async (req,res)=>{
-    try {
-        const producto = {name: req.body.name, price: Number(req.body.price) }
-        const newProduct = await path.save(producto)
-        const allProducts = await path.getAll()
-        res.json(allProducts)
-    } catch (error) {
-        console.log(error)
+    if (admin){
+        try {
+            const producto = req.body
+            const newProduct = await path.save(producto)
+            res.json(newProduct)
+        } catch (error) {
+            console.log(error)
+        }
+    } else {
+        const response = {respuesta: "No tiene acceso a este metodo"}
+        res.json(response)
     }
 })
 router.delete('/api/productos/:id', async (req,res)=>{
+    if (admin){
     try {
         const id = Number(req.params.id)
         const elementDeleted = await path.deleteByid(id)
@@ -45,14 +44,23 @@ router.delete('/api/productos/:id', async (req,res)=>{
     } catch (error) {
         console.log(error)
     }
+    }else {
+        const response = {respuesta: "No tiene acceso a este metodo"}
+        res.json(response)
+    }
 })
 router.put('/api/productos/:id', async (req,res)=>{
+    if (admin){
     try {
         const id = Number(req.params.id)
         const modifyProduct = await path.modifyProductById(id, (req.body))
         res.json(modifyProduct)
     } catch (error) {
         console.log(error)
+    }
+    }else {
+        const response = {respuesta: "No tiene acceso a este metodo"}
+        res.json(response)
     }
 })
 module.exports = router;

@@ -1,27 +1,52 @@
 [
   {
     "id": 1,
-    "name": "Samsung S20",
-    "price": 120000
+    "timestamp": "Modificado: 21/11/2022 16:56:08",
+    "nombre": "Laptop Hp 2546",
+    "descripcion": "Computadora portatil",
+    "codigo": "18C2",
+    "foto": "http://unaimagen.com.ar/",
+    "precio": 252500,
+    "stock": 30
   },
   {
     "id": 2,
-    "name": "jorgito",
-    "price": 35000
+    "timestamp": "Creado: 21/11/2022 16:29:59",
+    "nombre": "Iphone 8",
+    "descripcion": "Telefono celular",
+    "codigo": "15B2",
+    "foto": "http://hola.com/",
+    "precio": 252500,
+    "stock": 19
   },
   {
     "id": 3,
-    "name": "celular",
-    "price": 250000
+    "timestamp": "Modificado: 21/11/2022 17:21:51",
+    "nombre": "Laptop Hp 2546",
+    "descripcion": "Computadora portatil",
+    "codigo": "18C2",
+    "foto": "http://unaimagen.com.ar/",
+    "precio": 255500,
+    "stock": 29
   },
   {
     "id": 4,
-    "name": "Notebook",
-    "price": 150000
+    "timestamp": "Creado: 21/11/2022 17:03:06",
+    "nombre": "Laptop Mac",
+    "descripcion": "Computadora portatil",
+    "codigo": "18A2",
+    "foto": "http://unaimagen.com/",
+    "precio": 22500,
+    "stock": 12
   },
   {
     "id": 5,
-    "name": "algo",
-    "price": 2500
+    "timestamp": "Creado: 21/11/2022 17:03:40",
+    "nombre": "asdadssd",
+    "descripcion": "fdasasfdfdsa",
+    "codigo": "12",
+    "foto": "http://unaiaaaaagen.com/",
+    "precio": 22500,
+    "stock": 112
   }
 ]

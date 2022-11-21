@@ -4,7 +4,6 @@ const Cart = require('../controllers/cart')
 const pathCart = new Cart('./cart.json')
 
 
-
 router.get('/api/carritos', async (req,res) =>{
     try {
         const allCart = await pathCart.getAll()
@@ -37,9 +36,8 @@ router.delete('/api/carritos/:id_cart/productos/:id_prod', async (req,res)=>{
     try {
         const idCartRecieved = Number(req.params.id_cart)
         const idProdRecieved = Number(req.params.id_prod)
-        await pathCart.deleteByIdCartAndIdProd(idCartRecieved, idProdRecieved)
-        const allCart = await pathCart.getAll()
-        res.json(allCart) 
+        const deletedProduct = await pathCart.deleteByIdCartAndIdProd(idCartRecieved, idProdRecieved)
+        res.json(deletedProduct) 
     } catch (error) {
         console.log(error);
     }

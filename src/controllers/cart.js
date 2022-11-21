@@ -43,8 +43,12 @@ class Cart {
     async deleteById(idRecieved){
         try {
             const content = await this.getAll()
-            const filteredCart = content.filter(e => e.id !== idRecieved)
-            await fs.writeFile(`./${this.route}`, JSON.stringify(filteredCart, null, 2))
+            if ((idRecieved > 0) && (idRecieved)<= content.length){
+                const filteredCart = content.filter(e => e.id !== idRecieved)
+                await fs.writeFile(`./${this.route}`, JSON.stringify(filteredCart, null, 2))
+            }else {
+                console.log('error en busqueda de id')
+            }
             return content
         } catch (error) {
             console.log(error)
@@ -54,10 +58,18 @@ class Cart {
         try {
             const content = await this.getAll()
             const filteredCart = content[idCartRecieved - 1]
-            const filteredProducts = filteredCart.productos.filter(e => e.id !== idProdRecieved)
-            filteredCart.productos = filteredProducts
-            await fs.writeFile(`./${this.route}`, JSON.stringify(content, null, 2))
-            return content
+            if (filteredCart !== undefined){
+                const filteredProducts = filteredCart.productos.filter(e => e.id !== idProdRecieved)
+                filteredCart.productos = filteredProducts
+                await fs.writeFile(`./${this.route}`, JSON.stringify(content, null, 2))
+                return content
+            }else {
+                const error = {
+                    error: -3,
+                    descripcion: "error en busqueda de id de carrito o de producto",
+                }
+                return error
+            }
         } catch (error) {
             console.log(error)
         }
@@ -66,8 +78,16 @@ class Cart {
         try {
             const content = await this.getAll()
             const filteredCart = content[idRecieved - 1]
-            const filteredProducts = filteredCart.productos
-            return filteredProducts
+            if (filteredCart !== undefined){
+                const filteredProducts = filteredCart.productos
+                return filteredProducts
+            }else {
+                const error = {
+                    error: -3,
+                    descripcion: "error en busqueda de id",
+                }
+                return error
+            }
         } catch (error) {
             console.log(error)
         }
@@ -76,10 +96,31 @@ class Cart {
         try {
             const getAllCarts = await this.getAll()
             const getCartById = getAllCarts[idCart-1]
-            const allProducts = await pathProd.getAll()
-            const filteredProductsById =  allProducts.filter(e => e.id === idProd)[0]
-            getCartById.productos.push(filteredProductsById)
-            await fs.writeFile(`./${this.route}`, JSON.stringify(getAllCarts, null, 2))
+            if (getCartById !== undefined){
+                const allProducts = await pathProd.getAll()
+                const filteredProductsById =  allProducts.filter(e => e.id === idProd)[0]
+                if (filteredProductsById !== undefined){
+                    filteredProductsById.stock = filteredProductsById.stock - 1
+                    getCartById.productos.push(filteredProductsById)
+                    const newProduct = allProducts[idProd-1]
+                    allProducts.push(newProduct)[idProd-1]
+                    allProducts.pop()
+                    await fs.writeFile(`./${this.route}`, JSON.stringify(getAllCarts, null, 2))
+                    await fs.writeFile(`./products.json`, JSON.stringify(allProducts, null, 2))
+                } else {
+                    const error = {
+                        error: -3,
+                        descripcion: "error en busqueda de id de producto",
+                    }
+                    return error
+                }
+            }else{
+                const error = {
+                    error: -3,
+                    descripcion: "error en busqueda de id de carrito",
+                }
+                return error
+            }
             return getAllCarts
         } catch (error) {
             console.log(error);
