@@ -16,13 +16,23 @@ class Product {
         }
     }
 
-    async deleteByid(id){
+    async deleteByid(idRecieved){
         
         try {
             const content = await this.getAll()
-            const elementoFiltrado = content.filter(e => e.id !== id)
-            await fs.writeFile(`./${this.route}`, JSON.stringify(elementoFiltrado, null, 2))
-            return elementoFiltrado
+            const elementoFiltrado = content.filter(e => e.id !== idRecieved)
+            const elementoFiltradoParaCond = content.filter(e => e.id === idRecieved)
+            const isEmpty = Object.keys(elementoFiltradoParaCond).length === 0;
+            if (!isEmpty){
+                await fs.writeFile(`./${this.route}`, JSON.stringify(elementoFiltrado, null, 2))
+                return elementoFiltrado
+            }else {
+                const error = {
+                    error: -3,
+                    descripcion: "error en busqueda de id de carrito",
+                }
+                return error
+            }
         } catch (error) {
             console.log(error)
         }
@@ -74,6 +84,12 @@ class Product {
         if (!isEmpty){
             const filteredObject = await content.filter(e => e.id === id)
             return filteredObject
+        }else{
+            const error = {
+                error: -3,
+                descripcion: "error en busqueda de id de producto",
+            }
+            return error
         }
     }
     async modifyProductById(idRecieved, product){
@@ -86,10 +102,14 @@ class Product {
             if (!isEmpty){
             content.splice((idRecieved-1), 1 , newProduct )
             await fs.writeFile(`./${this.route}`, JSON.stringify(content, null, 2))
-            } else{
-                console.log("id no encontrado")
-            }
             return content
+            } else{
+                const error = {
+                    error: -3,
+                    descripcion: "error en busqueda de id de producto",
+                }
+                return error
+            }
         } catch (error) {
             console.log(error)
         }

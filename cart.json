@@ -53,26 +53,6 @@
         "stock": 29
       },
       {
-        "id": 1,
-        "timestamp": "Modificado: 21/11/2022 16:56:08",
-        "nombre": "Laptop Hp 2546",
-        "descripcion": "Computadora portatil",
-        "codigo": "18C2",
-        "foto": "http://unaimagen.com.ar/",
-        "precio": 252500,
-        "stock": 31
-      },
-      {
-        "id": 1,
-        "timestamp": "Modificado: 21/11/2022 16:56:08",
-        "nombre": "Laptop Hp 2546",
-        "descripcion": "Computadora portatil",
-        "codigo": "18C2",
-        "foto": "http://unaimagen.com.ar/",
-        "precio": 252500,
-        "stock": 30
-      },
-      {
         "id": 2,
         "timestamp": "Creado: 21/11/2022 16:29:59",
         "nombre": "Iphone 8",

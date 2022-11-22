@@ -43,13 +43,19 @@ class Cart {
     async deleteById(idRecieved){
         try {
             const content = await this.getAll()
-            if ((idRecieved > 0) && (idRecieved)<= content.length){
+            const filteredCartForCond = content.filter(e => e.id === idRecieved)
+            const isEmpty = Object.keys(filteredCartForCond).length === 0;
+            if (!isEmpty){
                 const filteredCart = content.filter(e => e.id !== idRecieved)
                 await fs.writeFile(`./${this.route}`, JSON.stringify(filteredCart, null, 2))
+                return filteredCart
             }else {
-                console.log('error en busqueda de id')
+                const error = {
+                    error: -3,
+                    descripcion: "error en busqueda de id de carrito",
+                }
+                return error
             }
-            return content
         } catch (error) {
             console.log(error)
         }
@@ -59,14 +65,24 @@ class Cart {
             const content = await this.getAll()
             const filteredCart = content[idCartRecieved - 1]
             if (filteredCart !== undefined){
-                const filteredProducts = filteredCart.productos.filter(e => e.id !== idProdRecieved)
-                filteredCart.productos = filteredProducts
-                await fs.writeFile(`./${this.route}`, JSON.stringify(content, null, 2))
-                return content
+                const filteredProductsForCond = filteredCart.productos.filter(e => e.id === idProdRecieved)
+                const isEmpty = Object.keys(filteredProductsForCond).length === 0;
+                if (!isEmpty){
+                    const filteredProducts = filteredCart.productos.filter(e => e.id !== idProdRecieved)
+                    filteredCart.productos = filteredProducts
+                    await fs.writeFile(`./${this.route}`, JSON.stringify(content, null, 2))
+                    return content
+                }else{
+                    const error = {
+                        error: -3,
+                        descripcion: "error en busqueda de id de producto",
+                    }
+                    return error
+                }
             }else {
                 const error = {
                     error: -3,
-                    descripcion: "error en busqueda de id de carrito o de producto",
+                    descripcion: "error en busqueda de id de carrito",
                 }
                 return error
             }

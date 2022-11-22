@@ -1,13 +1,13 @@
 [
   {
     "id": 1,
-    "timestamp": "Modificado: 21/11/2022 16:56:08",
-    "nombre": "Laptop Hp 2546",
+    "timestamp": "Modificado: 22/11/2022 18:56:32",
+    "nombre": "Laptop Hp",
     "descripcion": "Computadora portatil",
     "codigo": "18C2",
     "foto": "http://unaimagen.com.ar/",
     "precio": 252500,
-    "stock": 30
+    "stock": 32
   },
   {
     "id": 2,
@@ -41,12 +41,12 @@
   },
   {
     "id": 5,
-    "timestamp": "Creado: 21/11/2022 17:03:40",
-    "nombre": "asdadssd",
-    "descripcion": "fdasasfdfdsa",
-    "codigo": "12",
-    "foto": "http://unaiaaaaagen.com/",
-    "precio": 22500,
-    "stock": 112
+    "timestamp": "Creado: 22/11/2022 18:54:31",
+    "nombre": "Notebook",
+    "descripcion": "Computadora portatil",
+    "codigo": "d2asd5",
+    "foto": "http://unsaimagen.com/",
+    "precio": 252500,
+    "stock": 32
   }
 ]

@@ -31,7 +31,7 @@ router.post('/api/productos', async (req,res)=>{
             console.log(error)
         }
     } else {
-        const response = {respuesta: "No tiene acceso a este metodo"}
+        const response = {error: -1, descripcion: "ruta /api/productos metodo POST no autorizada"}
         res.json(response)
     }
 })
@@ -45,7 +45,7 @@ router.delete('/api/productos/:id', async (req,res)=>{
         console.log(error)
     }
     }else {
-        const response = {respuesta: "No tiene acceso a este metodo"}
+        const response = {error: -1, descripcion: "ruta /api/productos/:id metodo DELETE no autorizada"}
         res.json(response)
     }
 })
@@ -59,7 +59,7 @@ router.put('/api/productos/:id', async (req,res)=>{
         console.log(error)
     }
     }else {
-        const response = {respuesta: "No tiene acceso a este metodo"}
+        const response = {error: -1, descripcion: "ruta /api/productos/:id metodo PUT no autorizada"}
         res.json(response)
     }
 })

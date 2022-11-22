@@ -25,9 +25,8 @@ router.post('/api/carritos', async (req,res) => {
 router.delete('/api/carritos/:id', async (req,res)=>{
     try {
         const idRecieved = Number(req.params.id)
-        await pathCart.deleteById(idRecieved)
-        const allCart = await pathCart.getAll()
-        res.json(allCart) 
+        const deletedCart = await pathCart.deleteById(idRecieved)
+        res.json(deletedCart) 
     } catch (error) {
         console.log(error);
     }
